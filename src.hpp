@@ -8,16 +8,21 @@
 #include <algorithm>
 #include <cstring>
 
+// Global error messages
+static std::string g_nameErrorMsg;
+static std::string g_typeErrorMsg;
+
 class BasicException {
 protected:
-    std::string message;
+    const char *message;
 
 public:
-    explicit BasicException(const char *_message) : message(_message) {
+    explicit BasicException(const char *_message) {
+        message = _message;
     }
 
     virtual const char *what() const {
-        return message.c_str();
+        return message;
     }
 };
 
@@ -109,10 +114,10 @@ private:
         
         for (int i = 0; name[i] != '\0'; i++) {
             if (!((name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z'))) {
-                std::string errorMsg = "Argument Error: PM Name Invalid (";
-                errorMsg += name;
-                errorMsg += ")";
-                throw ArgumentException(errorMsg.c_str());
+                g_nameErrorMsg = "Argument Error: PM Name Invalid (";
+                g_nameErrorMsg += name;
+                g_nameErrorMsg += ")";
+                throw ArgumentException(g_nameErrorMsg.c_str());
             }
         }
     }
@@ -130,10 +135,10 @@ private:
             if (type.empty()) continue;
             
             if (validTypes.find(type) == validTypes.end()) {
-                std::string errorMsg = "Argument Error: PM Type Invalid (";
-                errorMsg += type;
-                errorMsg += ")";
-                throw ArgumentException(errorMsg.c_str());
+                g_typeErrorMsg = "Argument Error: PM Type Invalid (";
+                g_typeErrorMsg += type;
+                g_typeErrorMsg += ")";
+                throw ArgumentException(g_typeErrorMsg.c_str());
             }
         }
     }
