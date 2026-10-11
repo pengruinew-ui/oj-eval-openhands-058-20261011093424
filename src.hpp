@@ -73,43 +73,42 @@ private:
             }
         }
         
-        // Set up effectiveness based on the problem description
-        // Fire is super effective against grass
-        typeChart["fire"]["grass"] = 2.0f;
-        // Fire is not very effective against fire and water
-        typeChart["fire"]["fire"] = 0.5f;
-        typeChart["fire"]["water"] = 0.5f;
+        // Standard Pokemon type effectiveness (simplified to 7 types)
+        // Fire
+        typeChart["fire"]["grass"] = 2.0f;      // Super effective
+        typeChart["fire"]["ice"] = 2.0f;        // Super effective
+        typeChart["fire"]["fire"] = 0.5f;       // Not very effective
+        typeChart["fire"]["water"] = 0.5f;      // Not very effective
         
-        // Water is super effective against fire
-        typeChart["water"]["fire"] = 2.0f;
-        // Water is not very effective against water and grass
-        typeChart["water"]["water"] = 0.5f;
-        typeChart["water"]["grass"] = 0.5f;
+        // Water
+        typeChart["water"]["fire"] = 2.0f;      // Super effective
+        typeChart["water"]["grass"] = 0.5f;     // Not very effective
+        typeChart["water"]["water"] = 0.5f;     // Not very effective
         
-        // Grass is super effective against water
-        typeChart["grass"]["water"] = 2.0f;
-        // Grass is not very effective against fire and grass
-        typeChart["grass"]["fire"] = 0.5f;
-        typeChart["grass"]["grass"] = 0.5f;
+        // Grass
+        typeChart["grass"]["water"] = 2.0f;     // Super effective
+        typeChart["grass"]["fire"] = 0.5f;      // Not very effective
+        typeChart["grass"]["grass"] = 0.5f;     // Not very effective
+        typeChart["grass"]["ice"] = 0.5f;       // Not very effective
         
-        // Electric is super effective against water
-        typeChart["electric"]["water"] = 2.0f;
-        // Electric is not very effective against electric and grass
-        typeChart["electric"]["electric"] = 0.5f;
-        typeChart["electric"]["grass"] = 0.5f;
-        // Electric has no effect against ground (but ground is not in our type list)
+        // Electric
+        typeChart["electric"]["water"] = 2.0f;  // Super effective
+        typeChart["electric"]["grass"] = 0.5f;  // Not very effective
+        typeChart["electric"]["electric"] = 0.5f; // Not very effective
         
-        // Ice is super effective against grass
-        typeChart["ice"]["grass"] = 2.0f;
-        // Ice is not very effective against fire and ice
-        typeChart["ice"]["fire"] = 0.5f;
-        typeChart["ice"]["ice"] = 0.5f;
+        // Ice
+        typeChart["ice"]["grass"] = 2.0f;       // Super effective
+        typeChart["ice"]["fire"] = 0.5f;        // Not very effective
+        typeChart["ice"]["ice"] = 0.5f;         // Not very effective
+        typeChart["ice"]["water"] = 0.5f;       // Not very effective
         
-        // Fighting is super effective against normal and ice
-        typeChart["fighting"]["normal"] = 2.0f;
-        typeChart["fighting"]["ice"] = 2.0f;
-        // Fighting is not very effective against fighting
-        typeChart["fighting"]["fighting"] = 0.5f;
+        // Fighting
+        typeChart["fighting"]["normal"] = 2.0f; // Super effective
+        typeChart["fighting"]["ice"] = 2.0f;    // Super effective
+        typeChart["fighting"]["fighting"] = 0.5f; // Not very effective
+        
+        // Normal (not very effective against fighting)
+        typeChart["normal"]["fighting"] = 0.5f; // Not very effective
     }
     
     void validatePokemonName(const char *name) {
