@@ -8,9 +8,7 @@
 #include <algorithm>
 #include <cstring>
 
-// Global error messages
-static std::string g_nameErrorMsg;
-static std::string g_typeErrorMsg;
+
 
 class BasicException {
 protected:
@@ -29,12 +27,19 @@ public:
 class ArgumentException: public BasicException {
 public:
     explicit ArgumentException(const char *_message) : BasicException(_message) {}
+    
+    static std::string nameErrorMsg;
+    static std::string typeErrorMsg;
 };
 
 class IteratorException: public BasicException {
 public:
     explicit IteratorException(const char *_message) : BasicException(_message) {}
 };
+
+// Define static members
+std::string ArgumentException::nameErrorMsg;
+std::string ArgumentException::typeErrorMsg;
 
 struct Pokemon {
     char name[12];
@@ -114,10 +119,10 @@ private:
         
         for (int i = 0; name[i] != '\0'; i++) {
             if (!((name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z'))) {
-                g_nameErrorMsg = "Argument Error: PM Name Invalid (";
-                g_nameErrorMsg += name;
-                g_nameErrorMsg += ")";
-                throw ArgumentException(g_nameErrorMsg.c_str());
+                ArgumentException::nameErrorMsg = "Argument Error: PM Name Invalid (";
+                ArgumentException::nameErrorMsg += name;
+                ArgumentException::nameErrorMsg += ")";
+                throw ArgumentException(ArgumentException::nameErrorMsg.c_str());
             }
         }
     }
@@ -135,10 +140,10 @@ private:
             if (type.empty()) continue;
             
             if (validTypes.find(type) == validTypes.end()) {
-                g_typeErrorMsg = "Argument Error: PM Type Invalid (";
-                g_typeErrorMsg += type;
-                g_typeErrorMsg += ")";
-                throw ArgumentException(g_typeErrorMsg.c_str());
+                ArgumentException::typeErrorMsg = "Argument Error: PM Type Invalid (";
+                ArgumentException::typeErrorMsg += type;
+                ArgumentException::typeErrorMsg += ")";
+                throw ArgumentException(ArgumentException::typeErrorMsg.c_str());
             }
         }
     }
